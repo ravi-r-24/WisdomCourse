@@ -1,12 +1,9 @@
 import { Router } from "express";
+import registerBook from "../controller/book.js";
 
 const router = new Router();
 
 // routes [different end-points]
-router.route("/books").get((req, res) => {
-  res.status(200).json({
-    message: `This is get all books from the database end-points`,
-  });
-});
+router.route("/books").post(registerBook);
 
 export default router;
