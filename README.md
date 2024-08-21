@@ -21,3 +21,13 @@
         -> books.js
 
 # npm i mongoose
+
+# src
+
+    -> model
+        -> book.js
+    -> controller
+        -> book.js
+    -> utils
+        -> apiError.js
+        -> apiResponse.js
