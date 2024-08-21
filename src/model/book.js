@@ -23,10 +23,10 @@ const bookSchema = new Schema(
       },
       print_length: { type: Number },
     },
-    language: { type: String, enum: ["English", "Hindi"] },
-    description: { type: String },
-    index: [{ type: String }],
-    related_keys: [{ type: String }],
+    language: { type: String, enum: ["English", "Hindi"], required: true },
+    description: { type: String, required: true },
+    index: [{ type: String, required: true }],
+    related_keys: [{ type: String, required: true }],
   },
   { timestamp: true }
 );
