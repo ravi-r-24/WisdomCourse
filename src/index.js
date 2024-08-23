@@ -1,7 +1,13 @@
 import { app } from "./app.js";
 import { databaseConnection } from "./database/connection.js";
+import dotenv from "dotenv";
 
-const port = 8080;
+// configure dotenv
+dotenv.config({
+  path: "../.env",
+});
+
+const port = process.env.PORT || 8080;
 
 // database connection
 databaseConnection()
