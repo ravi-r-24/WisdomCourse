@@ -1,9 +1,18 @@
 import { Router } from "express";
-import registerBook from "../controller/book.js";
+import { register, books, book } from "../controller/book.js";
+import { upload } from "../middleware/multer.js";
 
-const router = new Router();
+export const router = Router();
 
-// routes [different end-points]
-router.route("/books").post(registerBook);
-
-export default router;
+// book end-points
+router.route("/register").post(
+  upload.fields([
+    {
+      name: "cover",
+      maxCount: 1,
+    },
+  ]),
+  register
+);
+router.route("/get_books").get(books);
+router.route("/get_book/:id").get(book);

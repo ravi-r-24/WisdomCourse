@@ -1,4 +1,5 @@
 import express from "express";
+import { router as BookRouter } from "./routes/book.js";
 
 export const app = express();
 
@@ -8,3 +9,6 @@ app.use(
     limit: 10000,
   })
 );
+
+// book router
+app.use("/api/v1/book", BookRouter);

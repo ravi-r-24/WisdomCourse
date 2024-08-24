@@ -5,6 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "dev": "nodemon -r dotenv/config --experimental-json-modules src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,9 +19,12 @@
   },
   "homepage": "https://github.com/ravi-r-24/WisdomCourse#readme",
   "dependencies": {
+    "cloudinary": "^2.4.0",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "lodash": "^4.17.21",
     "mongoose": "^8.5.3",
+    "multer": "^1.4.5-lts.1",
     "nodemon": "^3.1.4",
     "prettier": "^3.3.3"
   }

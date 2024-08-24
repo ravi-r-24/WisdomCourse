@@ -1,35 +1,26 @@
 import { Schema } from "mongoose";
+import mongoose from "mongoose";
 
-// book schema
 const bookSchema = new Schema(
   {
-    thumbnail: {
-      url: { type: String, required: true },
-    },
+    thumbnail: { type: String },
     title: { type: String, required: true },
     subtitle: { type: String, required: true },
-    eBook: {
-      stock: { type: Boolean },
-      price: {
-        original: { type: Number },
-        actual: { type: Number },
-      },
-    },
-    paperback: {
-      stock: { type: Number },
-      price: {
-        original: { type: Number },
-        actual: { type: Number },
-      },
-      print_length: { type: Number },
-    },
-    language: { type: String, enum: ["English", "Hindi"], required: true },
     description: { type: String, required: true },
-    index: [{ type: String, required: true }],
-    related_keys: [{ type: String, required: true }],
+    index: [{ type: String }],
+    type: { type: String, enum: ["eBook", "paperback"], required: true },
+    original_price: { type: Number, required: true },
+    actual_price: { type: Number, required: true },
+    free_delivery: { type: Boolean, required: true, default: true },
+    marketing_tag: {
+      type: String,
+      enum: ["Best Seller", "Recommended", "Must Read"],
+    },
+    language: { type: String, enum: ["English", "Hindi"], require: true },
+    print_length: { type: Number },
+    quantity: { type: Number },
   },
   { timestamp: true }
 );
 
-// book model
 export const Book = mongoose.model("Book", bookSchema);

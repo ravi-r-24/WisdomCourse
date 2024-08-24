@@ -31,3 +31,20 @@
     -> utils
         -> apiError.js
         -> apiResponse.js
+
+# configure dotenv
+
+# src
+
+    -> database
+        -> connection.js
+    -> constant.js
+
+# WISDOMCOURSE
+
+    -> .env
+
+# src
+
+    -> controller
+        -> book.js [books, book]
