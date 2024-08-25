@@ -2,6 +2,7 @@ import { APIError } from "../utils/apiError.js";
 import { APIResponse } from "../utils/apiResponse.js";
 import { Book } from "../model/book.js";
 import isEmpty from "lodash/isEmpty.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 export const register = async (req, res) => {
   // STEPS:
@@ -22,7 +23,6 @@ export const register = async (req, res) => {
     actual_price,
     language,
     related_tags,
-    cover,
   } = req.body;
 
   // 2. validate the data
@@ -38,11 +38,22 @@ export const register = async (req, res) => {
       "actual_price",
       "type",
       "free_delivery",
-      "cover",
     ].some((field) => field.trim() === "")
   ) {
     throw new APIError(409, "All * marked fields are mandatory");
   }
+
+  // b. check if the book cover is provided
+  const bookCoverLocalPath = req.files.cover[0].path;
+  console.log(`Book Cover Local Path: ${bookCoverLocalPath}`);
+
+  if (!bookCoverLocalPath) {
+    throw new APIError(409, "Book cover is required");
+  }
+
+  // upload the cover file to the cloudinary
+  const coverFile = await uploadOnCloudinary(bookCoverLocalPath);
+  const coverFileURL = coverFile.url;
 
   // 3. Create an object to make an entry to the database
   const newBook = await Book.create({
@@ -55,9 +66,9 @@ export const register = async (req, res) => {
     actual_price,
     type,
     free_delivery,
+    cover: coverFileURL,
   });
 
-  console.log(`New Book Data: ${newBook}`);
   newBook.save();
 
   // 5. Send response after saving the data to the database
