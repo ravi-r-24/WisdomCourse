@@ -1,5 +1,6 @@
 import express from "express";
 import bookRouter from "./routes/book.js";
+import seriesRouter from "./routes/series.js";
 
 export const app = express();
 
@@ -16,3 +17,5 @@ app.use(express.static("./uploads"));
 
 // book routes
 app.use("/api/v1/book", bookRouter);
+// series routes
+app.use("api/v1/series", seriesRouter);

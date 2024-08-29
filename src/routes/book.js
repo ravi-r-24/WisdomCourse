@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { register } from "../controller/book.js";
+import { register, fetchAllBooks, fetchBookById } from "../controller/book.js";
 import upload from "../middleware/multer.js";
 
 const router = new Router();
@@ -14,5 +14,7 @@ router.route("/register").post(
   ]),
   register
 );
+router.route("/books").get(fetchAllBooks);
+router.route("/book/:id").get(fetchBookById);
 
 export default router;

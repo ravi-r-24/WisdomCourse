@@ -1,7 +1,7 @@
-import apiError from "../utils/apiError.js";
+import APIError from "../utils/apiError.js";
 import uploadOnCloudinary from "../utils/cloudinary.js";
 import { Book } from "../model/book.js";
-import apiResponse from "../utils/apiResponse.js";
+import APIResponse from "../utils/apiResponse.js";
 
 export const register = async (req, res) => {
   // get the data from the form/user
@@ -74,3 +74,50 @@ export const register = async (req, res) => {
     .status(201)
     .json(new apiResponse(201, "Book", "Book creation successful"));
 };
+
+export const fetchAllBooks = async (req, res) => {
+  try {
+    // get all the books from the database
+    // send response to the user with the books
+
+    // get all the books from the database
+    const books = await Book.find({});
+
+    // send the response to the user
+    res
+      .status(200)
+      .json(new APIResponse(200, books, "All books successfully fetched"));
+  } catch (error) {
+    throw new APIError(500, "Error while fetching books", error);
+  }
+};
+
+export const fetchBookById = async (req, res) => {
+  // get book id from the url
+  // get the book from the database based on the id
+  // send response to the user with the book
+
+  try {
+    // get the url from the url
+    const bookId = req.params.id;
+    console.log(`Book id: ${bookId}`);
+
+    // get the book from the database
+    const book = await Book.findById(bookId);
+
+    // send the response to the user
+    res
+      .status(200)
+      .json(
+        new APIResponse(
+          200,
+          book,
+          `Book with id: ${bookId} successfully fetched`
+        )
+      );
+  } catch (error) {
+    throw new APIError(500, "Error while fetching book", error);
+  }
+};
+
+// TODO: update book code will be written at last
