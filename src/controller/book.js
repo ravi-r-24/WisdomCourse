@@ -100,8 +100,6 @@ export const fetchBookById = async (req, res) => {
   try {
     // get the url from the url
     const bookId = req.params.id;
-    console.log(`Book id: ${bookId}`);
-
     // get the book from the database
     const book = await Book.findById(bookId);
 
