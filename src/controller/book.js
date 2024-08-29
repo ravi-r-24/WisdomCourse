@@ -37,12 +37,13 @@ export const register = async (req, res) => {
 
   // validate data
   if (
-    [title, subtitle, language, description].some((field, index) =>
-      // trim the field and check if it is empty
-      console.log(`Index: ${index} ${field.trim() === ""}`)
+    [title, subtitle, language, description].some(
+      (field, index) =>
+        // trim the field and check if it is empty
+        field.trim() === ""
     )
   ) {
-    throw new apiError(409, `All * marked fields are mandatory`);
+    throw new APIError(409, `All * marked fields are mandatory`);
   }
 
   // upload the book cover image to the cloudinary
@@ -66,13 +67,11 @@ export const register = async (req, res) => {
     index,
   });
 
-  console.log(`New Book: ${newBook}`);
-
   newBook.save();
 
   res
     .status(201)
-    .json(new apiResponse(201, "Book", "Book creation successful"));
+    .json(new APIResponse(201, "Book", "Book creation successful"));
 };
 
 export const fetchAllBooks = async (req, res) => {
