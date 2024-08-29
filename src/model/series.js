@@ -5,7 +5,8 @@ const seriesSchema = new Schema(
   {
     title: { type: String, required: true },
     related_tags: [{ type: String }],
-    collection: [{ type: Schema.Types.ObjectId, ref: "SeriesCollection" }],
+    language: { type: String, enum: ["English", "Hindi"] },
+    collections: [{ type: Schema.Types.ObjectId, ref: "SeriesCollection" }],
   },
   { timestamp: true }
 );
