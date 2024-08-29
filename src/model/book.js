@@ -7,27 +7,27 @@ const bookSchema = new Schema(
     subtitle: { type: String, required: true },
     cover_photo: { type: String, required: true },
     eBook: {
-      name: { type: String },
-      available: { type: Boolean, default: false },
-      suggested_contribution: { type: Number },
-      original_contribution: { type: Number },
+      type: Boolean,
+      default: false,
     },
     paperback: {
-      name: { type: String },
-      suggested_contribution: { type: Number },
-      original_contribution: { type: Number },
-      no_of_copies: { type: Number, default: 0 },
+      type: Boolean,
+      default: false,
     },
-    language: { type: String, enum: ["Hindi", "English"] },
-    print_length: { type: Number },
-    description: { type: String },
+    language: { type: String, enum: ["Hindi", "English"], required: true },
+    description: { type: String, required: true },
     index: [{ type: String }],
-    marketing_tag: { type: String, enum: ["Hindi", "English"] },
-    related_tag: { type: String },
+    marketing_tag: {
+      type: String,
+      enum: ["Best Seller", "Recommended", "Must Read"],
+    },
+    related_tags: [{ type: String }],
+    free_delivery: { type: Boolean, default: true },
+    print_length: { type: Number },
+    original_price: { type: Number, default: 0, required: true },
+    suggested_price: { type: Number, default: 0, required: true },
   },
   { timestamp: true }
 );
 
-const Book = mongoose.model("Book", bookSchema);
-
-export default Book;
+export const Book = mongoose.model("Book", bookSchema);
